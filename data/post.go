@@ -1,20 +1,20 @@
 package data
 
 import (
-	postpb "go-grpc/protos/v1/post"
+	"go-grpc/protos/v1/post"
 )
 
 // PostData ...
 type PostData struct {
 	UserID string
-	Posts  []*postpb.PostMessage
+	Posts  []*post.PostMessage
 }
 
 // UserPosts ...
 var UserPosts = []*PostData{
 	{
 		UserID: "1",
-		Posts: []*postpb.PostMessage{
+		Posts: []*post.PostMessage{
 			{
 				PostId: "1",
 				Author: "", // Post 서비스는 자체적으로 유저의 이름은 알지 못한다

@@ -3,7 +3,7 @@ syntax = "proto3";
 
 package v1.user;
 
-option go_package = "github.com/dojinkimm/go-grpc-example/protos/v1/user";
+option go_package = "go-grpc/protos/v1/user";
 
 service User {
     rpc GetUser(GetUserRequest) returns (GetUserResponse);
