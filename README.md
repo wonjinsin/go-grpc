@@ -4,10 +4,10 @@
 
 ## 명령어
 ```
-go mod init go-grpc
+go mod init go-grpc-v1
 go get -u google.golang.org/grpc
 go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
-protoc -I=. --go_out . --go_opt paths=source_relative --go-grpc_out . --go-grpc_opt paths=source_relative protos/v1/user/user.proto
+protoc -I=. --go_out . --go_opt paths=source_relative --go-grpc_out . --go-grpc_opt paths=source_relative protos/post/post.proto
 ```
 
 ## 테스트 (ezy 이용)
