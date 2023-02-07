@@ -8,11 +8,11 @@ import (
 
 	"google.golang.org/grpc"
 
-	"go-grpc/data"
-	userpb "go-grpc/protos/v1/user"
+	"go-grpc-v2/data"
+	userpb "go-grpc-v2/protos/user"
 )
 
-const portNumber = "9000"
+const portNumber = "9001"
 
 type userServer struct {
 	userpb.UserServer

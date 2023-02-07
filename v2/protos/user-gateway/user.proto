@@ -1,8 +1,9 @@
+// go-grpc-v2/protos/user/user.proto
 syntax = "proto3";
 
 package v2.user;
 
-option go_package = "go-grpc/protos/v2/user";
+option go_package = "go-grpc-v2/proto/user-gateway/user";
 
 import "google/api/annotations.proto"; // 추가된 부분
 

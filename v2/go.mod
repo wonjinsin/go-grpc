@@ -1,4 +1,4 @@
-module go-grpc
+module go-grpc-v2
 
 go 1.18
 

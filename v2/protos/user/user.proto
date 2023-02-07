@@ -1,9 +1,9 @@
-// protos/v1/user/user.proto
+// go-grpc-v2/protos/user/user.proto
 syntax = "proto3";
 
-package v1.user;
+package user;
 
-option go_package = "go-grpc/protos/v1/user";
+option go_package = "go-grpc-v2/protos/user";
 
 service User {
     rpc GetUser(GetUserRequest) returns (GetUserResponse);

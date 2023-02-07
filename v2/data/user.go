@@ -1,6 +1,6 @@
 package data
 
-import "go-grpc/protos/v1/user"
+import "go-grpc-v2/protos/user"
 
 // Users ...
 var Users = []*user.UserMessage{
