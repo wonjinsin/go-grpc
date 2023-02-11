@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"phantom/config"
+	"phantom/controller"
 	"phantom/repository"
 	"phantom/service"
 	"phantom/util"
@@ -28,6 +29,12 @@ func init() {
 
 func main() {
 	phantom := config.Phantom
+
+	server, err := controller.Init(phantom.GetString("port"))
+	if err != nil {
+		fmt.Printf("Error when Start server: %v\n", err)
+		os.Exit(1)
+	}
 
 	repo, redis, err := repository.Init(phantom)
 	if err != nil {

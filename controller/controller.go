@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"log"
 	"net"
 	"os"
@@ -29,16 +30,22 @@ func init() {
 	}
 }
 
-func Init() server {
-	lis, err := net.Listen("tcp", ":"+phantom.GetString(""))
+// Init ...
+func Init(port string) (server *grpc.Server, err error) {
+	lis, err := net.Listen("tcp", fmt.Sprintf(":%s", port))
 	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
+		zlog.Errorw("failed to listen: %v", err)
+		return nil, err
 	}
+
 	grpcServer := grpc.NewServer()
-	log.Printf("start gRPC server on %s port", portNumber)
+	log.Printf("start gRPC server on %s port", port)
 	if err := grpcServer.Serve(lis); err != nil {
-		log.Fatalf("failed to serve: %s", err)
+		zlog.Errorw("failed to serve: %s", err)
+		return nil, err
 	}
+
+	return server, nil
 }
 
 func response(c echo.Context, code int, resultMsg string, result ...interface{}) error {
