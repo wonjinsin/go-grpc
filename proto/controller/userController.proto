@@ -1,0 +1,25 @@
+// protos/v1/user/user.proto
+syntax = "proto3";
+
+package controller;
+
+option go_package = "go-grpc-v1/protos/user";
+
+service User {
+    rpc GetUser(GetUserRequest) returns (GetUserResponse);
+    rpc ListUsers(ListUsersRequest) returns (ListUsersResponse);
+}
+
+message GetUserRequest {
+    string user_id = 1;
+}
+
+message GetUserResponse {
+    UserMessage user_message = 1;
+}
+
+message ListUsersRequest{}
+
+message ListUsersResponse {
+    repeated UserMessage user_messages = 1;
+}

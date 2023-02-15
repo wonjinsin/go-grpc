@@ -1,4 +1,4 @@
-wonjinsin/go-web-boilerplate(phantom)
+wonjinsin/go-grpc-boilerplate(phantom)
 ============================
 Simple rest api server with [Echo framework](https://github.com/labstack/echo)
 
@@ -16,7 +16,7 @@ Simple rest api server with [Echo framework](https://github.com/labstack/echo)
 - [Makefile]() : go build, test, vendor using Make
 
 ## Project structure
-DDD(Domain Driven Design) pattern with controller, model, servie, repository
+DDD(Domain Driven Design) pattern with grpc-controller, model, servie, repository
 
 ## Getting started
 
