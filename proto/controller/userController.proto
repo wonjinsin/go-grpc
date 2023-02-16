@@ -6,15 +6,10 @@ package controller;
 option go_package = "phantom/proto/controller/userController;userController";
 import "proto/model/user.proto";
 
-
-service User {
-    rpc GetUser(GetUserRequest) returns (GetUserResponse);
+service UserController {
+    rpc GetUser(GetUserRequest) returns (model.User);
 }
 
 message GetUserRequest {
     string user_id = 1;
-}
-
-message GetUserResponse {
-    string user_name = 1;
 }
