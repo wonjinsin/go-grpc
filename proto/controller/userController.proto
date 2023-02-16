@@ -3,11 +3,12 @@ syntax = "proto3";
 
 package controller;
 
-option go_package = "go-grpc-v1/protos/user";
+option go_package = "phantom/proto/controller/userController;userController";
+import "proto/model/user.proto";
+
 
 service User {
     rpc GetUser(GetUserRequest) returns (GetUserResponse);
-    rpc ListUsers(ListUsersRequest) returns (ListUsersResponse);
 }
 
 message GetUserRequest {
@@ -15,11 +16,5 @@ message GetUserRequest {
 }
 
 message GetUserResponse {
-    UserMessage user_message = 1;
-}
-
-message ListUsersRequest{}
-
-message ListUsersResponse {
-    repeated UserMessage user_messages = 1;
+    string user_name = 1;
 }

@@ -1,9 +1,9 @@
 // protos/v1/user/user.proto
 syntax = "proto3";
 
-package model;
+package user;
 
-option go_package = "phantom/proto/model/user";
+option go_package = "phantom/proto/model/user;user";
 
 message User {
     string uid = 1;
