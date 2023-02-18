@@ -1,9 +1,9 @@
-// protos/v1/user/user.proto
+// proto/controller/userController.proto
 syntax = "proto3";
 
 package controller;
 
-option go_package = "phantom/proto/controller/userController;userController";
+option go_package = "phantom/controller;controller";
 import "proto/model/user.proto";
 
 service UserController {

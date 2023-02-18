@@ -1,0 +1,6 @@
+// protos/model/user.proto
+syntax = "proto3";
+
+package model;
+
+option go_package = "phantom/model;model";

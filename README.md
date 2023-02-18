@@ -16,7 +16,7 @@ Simple rest api server with [Echo framework](https://github.com/labstack/echo)
 - [Makefile]() : go build, test, vendor using Make
 
 ## Project structure
-DDD(Domain Driven Design) pattern with grpc-controller, model, servie, repository
+DDD(Domain Driven Design) pattern with grpc-controller, model, service, repository
 
 ## Getting started
 

@@ -30,4 +30,6 @@ go.mod
 go.sum
 __debug_bin
 pkg.list
-no-complie
+nocomplie
+
+*.pb.go

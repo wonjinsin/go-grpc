@@ -67,6 +67,16 @@ start:
 
 all: init tidy vendor build
 
+.PHONY: proto
+proto: $(info Generate protos...)
+	@mkdir -p generate
+	@protoc -I. --go_out=./generate proto/model/*.proto
+	@protoc -I. --go_out=./generate --go-grpc_out=./generate proto/controller/*.proto
+
+	@mv ./generate/phantom/model/* ./model
+	@mv ./generate/phantom/controller/* ./controller
+	@rm -rf ./generate
+
 clean:; $(info cleaning…) @ 
 	@rm -rf vendor mock bin
 	@rm -rf go.mod go.sum pkg.list
