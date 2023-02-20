@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"phantom/config"
 	"phantom/mock"
 	"phantom/model"
 
@@ -15,7 +14,6 @@ import (
 
 var _ = Describe("userService Test", func() {
 	var (
-		conf     *config.ViperConfig
 		mockCtrl *gomock.Controller
 		muRepo   *mock.MockUserRepository
 
@@ -27,7 +25,7 @@ var _ = Describe("userService Test", func() {
 		mockCtrl = gomock.NewController(GinkgoT())
 		muRepo = mock.NewMockUserRepository(mockCtrl)
 
-		userService = NewUserService(conf, muRepo)
+		userService = NewUserService(muRepo)
 		ctx = context.Background()
 	})
 
@@ -52,7 +50,7 @@ var _ = Describe("userService Test", func() {
 			nick = gofakeit.Name()
 
 			expectedUser = &model.User{
-				UID:   uid,
+				Uid:   uid,
 				Email: email,
 				Nick:  &nick,
 			}
@@ -90,7 +88,7 @@ var _ = Describe("userService Test", func() {
 			nick = gofakeit.Name()
 
 			expectedUser = &model.User{
-				UID:   uid,
+				Uid:   uid,
 				Email: email,
 				Nick:  &nick,
 			}
@@ -135,13 +133,13 @@ var _ = Describe("userService Test", func() {
 			}
 
 			newUser = &model.User{
-				UID:   uid,
+				Uid:   uid,
 				Email: email,
 				Nick:  &nick,
 			}
 
 			expectedUser = &model.User{
-				UID:   uid,
+				Uid:   uid,
 				Email: email,
 				Nick:  &nick,
 			}

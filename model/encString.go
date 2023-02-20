@@ -5,28 +5,20 @@ import (
 	"errors"
 )
 
-// Password ...
-type Password string
-
-// String ...
-func (e *Password) String() string {
-	return "**encrypted**"
-}
-
 // MarshalJSON ...
-func (e *Password) MarshalJSON() ([]byte, error) {
+func (e *EncString) MarshalJSON() ([]byte, error) {
 	return json.Marshal(e.String())
 }
 
 // UnmarshalJSON ...
-func (e *Password) UnmarshalJSON(b []byte) error {
+func (e *EncString) UnmarshalJSON(b []byte) error {
 	var v interface{}
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
 	}
 	switch value := v.(type) {
 	case string:
-		*e = Password(value)
+		e.Message = string(value)
 		return nil
 	default:
 		return errors.New("Invalid Data")
@@ -34,6 +26,6 @@ func (e *Password) UnmarshalJSON(b []byte) error {
 }
 
 // IsEmpty ...
-func (e *Password) IsEmpty() bool {
-	return *e == Password("")
+func (e *EncString) IsEmpty() bool {
+	return e.Message == ""
 }

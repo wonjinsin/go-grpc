@@ -56,7 +56,7 @@ func (r *redisUserRepository) newUserToRedis(ctx context.Context, user *model.Us
 		return err
 	}
 
-	if err = r.client.Set(ctx, fmt.Sprintf("%s:users:%s", redisPrefix, user.UID), userJSON, 0).Err(); err != nil {
+	if err = r.client.Set(ctx, fmt.Sprintf("%s:users:%s", redisPrefix, user.GetUid()), userJSON, 0).Err(); err != nil {
 		zlog.With(ctx).Errorw("newUserToRedis Error", "err", err)
 	}
 	return err

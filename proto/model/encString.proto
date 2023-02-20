@@ -4,3 +4,7 @@ syntax = "proto3";
 package model;
 
 option go_package = "phantom/model;model";
+
+message EncString {
+    string Message = 1;
+}

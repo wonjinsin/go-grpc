@@ -4,10 +4,11 @@ syntax = "proto3";
 package model;
 
 option go_package = "phantom/model;model";
+import "proto/model/encString.proto";
 
 message User {
     string uid = 1;
     string email = 2;
-    string nick = 4;
-    Mystring test = 5;
+    model.EncString password = 3;
+    optional string nick = 4;
 }
