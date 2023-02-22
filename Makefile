@@ -71,10 +71,10 @@ all: init tidy vendor build
 proto: $(info Generate protos...)
 	@mkdir -p generate
 	@protoc -I. --go_out=./generate proto/model/*.proto
-	@protoc -I. --go_out=./generate --go-grpc_out=./generate proto/controller/*.proto
+	@protoc -I. --go_out=./generate --go-grpc_out=./generate proto/controller/v1/*.proto
 
 	@mv ./generate/phantom/model/* ./model
-	@mv ./generate/phantom/controller/* ./controller
+	@mv ./generate/phantom/controller/v1/* ./controller/v1
 	@rm -rf ./generate
 
 clean:; $(info cleaning…) @ 

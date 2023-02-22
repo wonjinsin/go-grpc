@@ -3,11 +3,11 @@ syntax = "proto3";
 
 package controller;
 
-option go_package = "phantom/controller;controller";
+option go_package = "phantom/controller/v1;v1";
 import "proto/model/user.proto";
 
 service UserController {
-    rpc GetUser(GetUserRequest) returns (model.User);
+    rpc GetUser(GetUserRequest) returns (error);
 }
 
 message GetUserRequest {

@@ -1,4 +1,4 @@
-package controller
+package v1
 
 import (
 	"context"
@@ -9,22 +9,24 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
+	grpc "google.golang.org/grpc"
 )
 
-// User ...
-type User struct {
+// UserServer ...
+type UserServer struct {
+	UserControllerServer
 	userSvc service.UserService
 }
 
 // NewUserController ...
-func NewUserController(userSvc service.UserService) UserController {
-	return &User{
+func NewUserController(grpcServe *grpc.Server, userSvc service.UserService) *UserServer {
+	return &UserServer{
 		userSvc: userSvc,
 	}
 }
 
 // GetUser ...
-func (u *User) GetUser(c echo.Context) (err error) {
+func (u UserServer) GetUser(c echo.Context) (err error) {
 	ctx := c.Request().Context()
 	uid := c.Param("uid")
 	zlog.With(ctx).Infow("[New request]", "uid", uid)
