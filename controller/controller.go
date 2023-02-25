@@ -1,10 +1,10 @@
 package controller
 
 import (
-	"fmt"
 	"log"
-	"net"
 	"os"
+	"phantom/router"
+	"phantom/service"
 	"phantom/util"
 
 	"google.golang.org/grpc"
@@ -29,19 +29,7 @@ func init() {
 }
 
 // Init ...
-func Init(port string) (server *grpc.Server, err error) {
-	lis, err := net.Listen("tcp", fmt.Sprintf(":%s", port))
-	if err != nil {
-		zlog.Errorw("failed to listen: %v", err)
-		return nil, err
-	}
-
-	grpcServer := grpc.NewServer()
-	log.Printf("start gRPC server on %s port", port)
-	if err := grpcServer.Serve(lis); err != nil {
-		zlog.Errorw("failed to serve: %s", err)
-		return nil, err
-	}
-
-	return server, nil
+func Init(server *grpc.Server, svc *service.Service) *grpc.Server {
+	router.Init(server, svc)
+	return server
 }

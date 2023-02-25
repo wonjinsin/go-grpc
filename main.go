@@ -3,15 +3,16 @@ package main
 import (
 	"fmt"
 	"log"
+	"net"
 	"os"
 	"phantom/config"
 	"phantom/controller"
 	"phantom/repository"
-	"phantom/router"
 	"phantom/service"
 	"phantom/util"
 
 	"github.com/dimiro1/banner"
+	"google.golang.org/grpc"
 )
 
 var zlog *util.Logger
@@ -31,25 +32,31 @@ func init() {
 func main() {
 	phantom := config.Phantom
 
-	server, err := controller.Init(phantom.GetString("port"))
-	if err != nil {
-		fmt.Printf("Error when Start server: %v\n", err)
-		os.Exit(1)
-	}
-
 	repo, redis, err := repository.Init(phantom)
 	if err != nil {
-		fmt.Printf("Error when Start repository: %v\n", err)
+		zlog.Errorw("Error when Start repository: %v\n", err)
 		os.Exit(1)
 	}
 
 	svc, err := service.Init(phantom, repo, redis)
 	if err != nil {
-		fmt.Printf("Error when Start service: %v\n", err)
+		zlog.Errorw("Error when Start service: %v\n", err)
 		os.Exit(1)
 	}
 
-	router.Init(server, svc)
+	server := grpc.NewServer()
+	server = controller.Init(server, svc)
+	lis, err := net.Listen("tcp", fmt.Sprintf(":%s", phantom.GetString("port")))
+	if err != nil {
+		zlog.Errorw("Error when Start listen port: %v\n", err)
+		os.Exit(1)
+	}
+
+	log.Printf("start gRPC server on %s port", phantom.GetString("port"))
+	if err := server.Serve(lis); err != nil {
+		zlog.Errorw("failed to serve: %v", err)
+		os.Exit(1)
+	}
 }
 
 func bannerInit() {
