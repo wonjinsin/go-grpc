@@ -2,7 +2,6 @@ package v1
 
 import (
 	"context"
-	"net/http"
 	"phantom/model"
 	"phantom/service"
 	"phantom/util"
@@ -18,28 +17,26 @@ type UserServer struct {
 }
 
 // NewUserController ...
-func NewUserController(grpcServer *grpc.Server, userSvc service.UserService) {
-	RegisterUserControllerServer(grpcServer, &UserServer{})
+func NewUserController(server *grpc.Server, userSvc service.UserService) {
+	RegisterUserControllerServer(server, &UserServer{})
 }
 
 // GetUser ...
-func (u UserServer) GetUser(ctx context.Context, req GetUserRequest) (err error) {
-	ctx := c.Request().Context()
-	uid := c.Param("uid")
-	zlog.With(ctx).Infow("[New request]", "uid", uid)
+func (u UserServer) GetUser(ctx context.Context, req *GetUserRequest) (user *model.User, err error) {
+	zlog.With(ctx).Infow("[New request]", "req", req)
 	intCtx, cancel := context.WithTimeout(ctx, util.CtxTimeOut)
 	defer cancel()
 
+	uid := req.Uid
 	if _, err = uuid.Parse(uid); err != nil {
 		zlog.With(intCtx).Warnw("ID is not valid", "uid", uid, "err", err)
-		return response(c, http.StatusBadRequest, "User is not valid")
+		return nil, err
 	}
 
-	user := &model.User{}
 	if user, err = u.userSvc.GetUser(intCtx, uid); err != nil {
 		zlog.With(intCtx).Warnw("UserSvc GetUser failed", "uid", uid, "err", err)
-		return response(c, http.StatusInternalServerError, err.Error())
+		return nil, err
 	}
 
-	return response(c, http.StatusOK, "GetUser OK", user)
+	return user, nil
 }

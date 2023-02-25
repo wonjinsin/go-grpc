@@ -6,15 +6,13 @@ import (
 	"net"
 	"os"
 	"phantom/util"
-	"strconv"
 
-	"github.com/labstack/echo/v4"
 	"google.golang.org/grpc"
 )
 
 var zlog *util.Logger
 
-type pickachuStatus struct {
+type phantomStatus struct {
 	TRID       string      `json:"trid"`
 	ResultCode string      `json:"resultCode"`
 	ResultMsg  string      `json:"resultMsg"`
@@ -46,37 +44,4 @@ func Init(port string) (server *grpc.Server, err error) {
 	}
 
 	return server, nil
-}
-
-func response(c echo.Context, code int, resultMsg string, result ...interface{}) error {
-	strCode := strconv.Itoa(code)
-	trid, ok := c.Request().Context().Value(util.TRID).(string)
-	if !ok {
-		trid = util.GetTRID()
-	}
-
-	res := pickachuStatus{
-		TRID:       trid,
-		ResultCode: strCode,
-		ResultMsg:  resultMsg,
-	}
-
-	if result != nil {
-		res.ResultData = result[0]
-	}
-
-	return c.JSON(code, res)
-}
-
-// UserController ...
-type UserController interface {
-	GetUser(c echo.Context) (err error)
-	UpdateUser(c echo.Context) (err error)
-	DeleteUser(c echo.Context) (err error)
-}
-
-// AuthController ...
-type AuthController interface {
-	Signup(c echo.Context) (err error)
-	Signin(c echo.Context) (err error)
 }

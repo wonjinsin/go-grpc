@@ -1,28 +1,21 @@
 package router
 
 import (
-	ct "phantom/controller"
+	v1 "phantom/controller/v1"
 	"phantom/service"
 
-	"github.com/labstack/echo/v4"
+	"google.golang.org/grpc"
 )
 
 // Init ...
-func Init(e *echo.Echo, svc *service.Service) {
-	api := e.Group("/api")
-	ver := api.Group("/v1")
-
-	makeV1Route(ver, svc)
+func Init(server *grpc.Server, svc *service.Service) {
+	makeV1Route(server, svc)
 }
 
-func makeV1Route(ver *echo.Group, svc *service.Service) {
-	makeV1UserRoute(ver, svc)
+func makeV1Route(server *grpc.Server, svc *service.Service) {
+	makeV1UserRoute(server, svc)
 }
 
-func makeV1UserRoute(ver *echo.Group, svc *service.Service) {
-	user := ver.Group("/user")
-	userCt := ct.NewUserController(svc.User)
-	user.GET("/:uid", userCt.GetUser)
-	user.PUT("/:uid", userCt.UpdateUser)
-	user.DELETE("/:uid", userCt.DeleteUser)
+func makeV1UserRoute(server *grpc.Server, svc *service.Service) {
+	v1.NewUserController(server, svc.User)
 }

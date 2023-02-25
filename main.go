@@ -7,6 +7,7 @@ import (
 	"phantom/config"
 	"phantom/controller"
 	"phantom/repository"
+	"phantom/router"
 	"phantom/service"
 	"phantom/util"
 
@@ -47,6 +48,8 @@ func main() {
 		fmt.Printf("Error when Start service: %v\n", err)
 		os.Exit(1)
 	}
+
+	router.Init(server, svc)
 }
 
 func bannerInit() {

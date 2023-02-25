@@ -7,9 +7,9 @@ option go_package = "phantom/controller/v1;v1";
 import "proto/model/user.proto";
 
 service UserController {
-    rpc GetUser(GetUserRequest) returns (error);
+    rpc GetUser(GetUserRequest) returns (model.User);
 }
 
 message GetUserRequest {
-    string user_id = 1;
+    string uid = 1;
 }
