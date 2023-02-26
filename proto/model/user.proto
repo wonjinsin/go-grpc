@@ -5,8 +5,10 @@ package model;
 
 option go_package = "phantom/model;model";
 import "proto/model/encString.proto";
+import "gorm.proto";
 
 message User {
+    option (gorm.opts).ormable = true;
     string uid = 1;
     string email = 2;
     model.EncString password = 3;

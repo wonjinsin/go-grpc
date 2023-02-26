@@ -50,7 +50,7 @@ func (g *gormUserRepository) GetUser(ctx context.Context, uid string) (ruser *mo
 	}
 	if scope.RowsAffected == 0 {
 		zlog.With(ctx).Errorw("GetUser Not Found", "uid", uid, "err", err)
-		return nil, errors.UserNotFoundf("User is not exist")
+		return nil, errors.UserNotFoundf("User")
 	}
 
 	return ruser, nil

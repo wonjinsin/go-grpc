@@ -18,7 +18,9 @@ type UserServer struct {
 
 // NewUserController ...
 func NewUserController(server *grpc.Server, userSvc service.UserService) {
-	RegisterUserControllerServer(server, &UserServer{})
+	RegisterUserControllerServer(server, &UserServer{
+		userSvc: userSvc,
+	})
 }
 
 // GetUser ...
