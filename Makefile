@@ -69,8 +69,11 @@ all: init tidy vendor build
 
 .PHONY: proto
 proto: $(info Generate protos...)
+	@mkdir -p proto/dependency
+	@git clone https://github.com/infobloxopen/protoc-gen-gorm.git proto/dependency
+
 	@mkdir -p generate
-	@protoc -I. --go_out=./generate proto/model/*.proto
+	@protoc -I. -I./proto/dependency/proto/options --gorm_out="engine=postgres,enums=string,gateway:./generate" --go_out=./generate proto/model/*.proto
 	@protoc -I. --go_out=./generate --go-grpc_out=./generate proto/controller/v1/*.proto
 
 	@mv ./generate/phantom/model/* ./model

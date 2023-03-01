@@ -12,5 +12,5 @@ message User {
     string uid = 1;
     string email = 2;
     model.EncString password = 3;
-    optional string nick = 4;
+    string nick = 4;
 }

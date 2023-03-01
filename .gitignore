@@ -33,3 +33,5 @@ pkg.list
 nocomplie
 
 *.pb.go
+generate
+proto/dependency
