@@ -12,7 +12,6 @@ import (
 	"phantom/util"
 
 	"github.com/dimiro1/banner"
-	_ "github.com/infobloxopen/protoc-gen-gorm"
 	"google.golang.org/grpc"
 )
 
