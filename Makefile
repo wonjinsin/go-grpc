@@ -69,16 +69,17 @@ all: init tidy vendor build
 
 .PHONY: proto
 proto: $(info Generate protos...)
-	@mkdir -p proto/dependency
-	@git clone https://github.com/infobloxopen/protoc-gen-gorm.git proto/dependency
+	# @mkdir -p proto/dependency/proto-gen-gorm
+	# @git clone https://github.com/infobloxopen/protoc-gen-gorm.git proto/dependency/proto-gen-gorm
+	sh protoGen.sh
 
-	@mkdir -p generate
-	@protoc -I. -I./proto/dependency/proto/options --gorm_out="engine=postgres,enums=string,gateway:./generate" --go_out=./generate proto/model/*.proto
-	@protoc -I. --go_out=./generate --go-grpc_out=./generate proto/controller/v1/*.proto
+	# @mkdir -p generate
+	# @protoc -I. -I./proto/dependency/proto/options --gorm_out="engine=postgres,enums=string,gateway:./generate" --go_out=./generate proto/model/*.proto
+	# @protoc -I. --go_out=./generate --go-grpc_out=./generate proto/controller/v1/*.proto
 
-	@mv ./generate/phantom/model/* ./model
-	@mv ./generate/phantom/controller/v1/* ./controller/v1
-	@rm -rf ./generate
+	# @mv ./generate/phantom/model/* ./model
+	# @mv ./generate/phantom/controller/v1/* ./controller/v1
+	# @rm -rf ./generate
 
 clean:; $(info cleaning…) @ 
 	@rm -rf vendor mock bin
