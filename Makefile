@@ -69,7 +69,13 @@ all: init tidy vendor build
 
 .PHONY: proto
 proto: $(info Generate protos...)
-	sh protoGen.sh
+	@mkdir -p generate
+	@protoc -I. --go_out=./generate proto/model/*.proto
+	@protoc -I. --go_out=./generate --go-grpc_out=./generate proto/controller/v1/*.proto
+
+	@mv ./generate/phantom/model/* ./model
+	@mv ./generate/phantom/controller/v1/* ./controller/v1
+	@rm -rf ./generate
 
 clean:; $(info cleaning…) @ 
 	@rm -rf vendor mock bin
