@@ -14,7 +14,7 @@ ifneq (, $(CUSTOM_OS))
 else
 	OS ?= $(shell uname | awk '{print tolower($0)}')
 endif
-build:
+build: proto
 	GOOS=$(OS) go build -o $(BINARY_NAME) $(MAIN)
 
 .PHONY: vet
@@ -72,7 +72,7 @@ proto: $(info Generate protos...)
 	@mkdir -p generate
 	@protoc -I. --go_out=./generate proto/model/*.proto
 	@protoc -I. --go_out=./generate --go-grpc_out=./generate proto/controller/v1/*.proto
-	@protoc-go-inject-tag -input="./model/*.pb.go"
+	@protoc-go-inject-tag -input="./generate/phantom/model/*.pb.go"
 
 	@mv ./generate/phantom/model/* ./model
 	@mv ./generate/phantom/controller/v1/* ./controller/v1

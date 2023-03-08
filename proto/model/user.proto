@@ -7,8 +7,8 @@ option go_package = "phantom/model;model";
 import "proto/model/encString.proto";
 
 message User {
-    string uid = 1; // @gotags: validate:"omitempty"
-    string email = 2;
-    model.EncString password = 3;
-    string nick = 4;
+    string uid = 1; // @gotags: gorm:"type:varchar(36);not null;primaryKey"
+    string email = 2; // @gotags: gorm:"type:varchar(255);not null"
+    model.EncString password = 3; // @gotags: gorm:"column:password;type:blob;not null"
+    optional string nick = 4; // @gotags: gorm:"type:varchar(255);default:null"
 }

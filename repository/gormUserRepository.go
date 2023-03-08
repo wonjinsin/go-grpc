@@ -19,7 +19,7 @@ func NewGormUserRepository(conn *gorm.DB) UserRepository {
 		&model.User{},
 	}
 	if err := conn.Set("gorm:table_options", util.DBCharsetOption).Migrator().AutoMigrate(migrations...); err != nil {
-		zlog.Panicw("NewGormDealRepository Unable to AutoMigrate DealRepository", "err", err)
+		zlog.Panicw("NewGormUserRepository Unable to AutoMigrate UserRepository", "err", err)
 	}
 
 	return &gormUserRepository{conn: conn}
