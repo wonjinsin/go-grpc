@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"net/http"
 	"os"
 	"phantom/config"
 	"phantom/controller"
@@ -12,6 +13,7 @@ import (
 	"phantom/util"
 
 	"github.com/dimiro1/banner"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
 )
 
@@ -45,10 +47,18 @@ func main() {
 	}
 
 	server := grpc.NewServer()
-	server = controller.Init(server, svc)
+	controller.Init(server, svc)
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%s", phantom.GetString("port")))
 	if err != nil {
 		zlog.Errorw("Error when Start listen port: %v\n", err)
+		os.Exit(1)
+	}
+
+	httpServer := runtime.NewServeMux()
+	controller.InitHTTPController(httpServer, fmt.Sprintf("localhost:%s", phantom.GetString("port")))
+	log.Printf("start HTTP server on %s port", fmt.Sprintf("localhost:%s", phantom.GetString("httpPort")))
+	if err := http.ListenAndServe(fmt.Sprintf(":%s", phantom.GetString("httpPort")), httpServer); err != nil {
+		zlog.Errorw("failed to serve http server: %v", err)
 		os.Exit(1)
 	}
 

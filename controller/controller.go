@@ -1,12 +1,14 @@
 package controller
 
 import (
+	"context"
 	"log"
 	"os"
 	"phantom/router"
 	"phantom/service"
 	"phantom/util"
 
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
 )
 
@@ -29,7 +31,15 @@ func init() {
 }
 
 // Init ...
-func Init(server *grpc.Server, svc *service.Service) *grpc.Server {
+func Init(server *grpc.Server, svc *service.Service) {
 	router.Init(server, svc)
-	return server
+}
+
+// InitHTTPController ...
+func InitHTTPController(httpServer *runtime.ServeMux, port string) {
+	ctx := context.Background()
+	options := []grpc.DialOption{
+		grpc.WithInsecure(),
+	}
+	router.InitHTTP(ctx, httpServer, port, options)
 }

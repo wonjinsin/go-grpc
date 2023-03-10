@@ -2,6 +2,7 @@ projectName: phantom
 domain: http://localhost:33333
 env: local
 port: 33333
+httpPort: 33334
 
 database:
   dialect: mysql

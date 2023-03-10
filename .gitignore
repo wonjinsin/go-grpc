@@ -33,5 +33,6 @@ pkg.list
 nocomplie
 
 *.pb.go
+*.pb.gw.go
 generate
 dependency

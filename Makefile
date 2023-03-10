@@ -72,6 +72,7 @@ proto: $(info Generate protos...)
 	@mkdir -p generate
 	@protoc -I. --go_out=./generate proto/model/*.proto
 	@protoc -I. --go_out=./generate --go-grpc_out=./generate proto/controller/v1/*.proto
+	@protoc -I. --grpc-gateway_out ./generate --grpc-gateway_opt logtostderr=true --go_out=./generate --go-grpc_out=./generate proto/controller/v1/*.proto
 	@protoc-go-inject-tag -input="./generate/phantom/model/*.pb.go"
 
 	@mv ./generate/phantom/model/* ./model

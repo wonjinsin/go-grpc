@@ -10,7 +10,7 @@ import "google/api/annotations.proto";
 service UserController {
     rpc GetUser(GetUserRequest) returns (model.User){
         option (google.api.http) = {
-            get: "/v1/users/{user_id}"  // 추가된 부분
+            get: "/v1/users/{uid}"
         };
     }
 }

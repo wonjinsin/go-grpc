@@ -2,11 +2,13 @@ package v1
 
 import (
 	"context"
+	"log"
 	"phantom/model"
 	"phantom/service"
 	"phantom/util"
 
 	"github.com/google/uuid"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	grpc "google.golang.org/grpc"
 )
 
@@ -21,6 +23,18 @@ func NewUserController(server *grpc.Server, userSvc service.UserService) {
 	RegisterUserControllerServer(server, &UserServer{
 		userSvc: userSvc,
 	})
+}
+
+// NewUserHTTPController ...
+func NewUserHTTPController(ctx context.Context, httpServer *runtime.ServeMux, port string, options []grpc.DialOption) {
+	if err := RegisterUserControllerHandlerFromEndpoint(
+		ctx,
+		httpServer,
+		port,
+		options,
+	); err != nil {
+		log.Fatalf("failed to register gRPC gateway: %v", err)
+	}
 }
 
 // GetUser ...
