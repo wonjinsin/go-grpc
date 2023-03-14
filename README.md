@@ -1,6 +1,6 @@
 wonjinsin/go-grpc-boilerplate(phantom)
 ============================
-Simple rest api server with [Echo framework](https://github.com/labstack/echo)
+Simple rest api server with [GO-GRPC](https://github.com/grpc/grpc-go)
 
 [![License MIT](https://img.shields.io/badge/License-MIT-green.svg)](http://opensource.org/licenses/MIT)
 [![DB Version](https://img.shields.io/badge/DB-Redis-red)](https://redis.io/)
@@ -17,6 +17,12 @@ Simple rest api server with [Echo framework](https://github.com/labstack/echo)
 
 ## Project structure
 DDD(Domain Driven Design) pattern with grpc-controller, model, service, repository
+
+## dependency
+```
+$ go install google.golang.org/protobuf/cmd/protoc-gen-go
+$ go install github.com/favadi/protoc-go-inject-tag@latest
+```
 
 ## Getting started
 
